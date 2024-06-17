@@ -1,15 +1,6 @@
 <?php 
-// Koneksi ke DB & Pilih Database
-$conn = mysqli_connect('localhost', 'root', '', 'pw_2350081001');
-
-// Query isi tabel mahasiswa
-$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
-
-// Ubah data ke dalam array
-$mahasiswa = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $mahasiswa[] = $row;
-}
+require 'functions.php';
+$mahasiswa = query("SELECT * FROM mahasiswa");
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         <tr>
             <th>#</th>
             <th>Gambar</th>
-            <th>Nim</th>
             <th>Nama</th>
-            <th>Email</th>
-            <th>Jurusan</th>
             <th>Aksi</th>
         </tr>
 
@@ -38,12 +26,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <tr>
                 <td><?= $i++; ?></td>
                 <td><img src="img/<?= $m['Gambar']; ?>" width="200"></td>
-                <td><?= $m['Nim']; ?></td>
                 <td><?= $m['Nama']; ?></td>
-                <td><?= $m['Email']; ?></td>
-                <td><?= $m['Jurusan']; ?></td>
                 <td>
-                    <a href="">ubah</a> | <a href="">hapus</a>
+                    <a href="detail.php?id=<?= $m['id']; ?>">lihat detail</a>
+
                 </td>
             </tr>
         <?php endforeach; ?>
