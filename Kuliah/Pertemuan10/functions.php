@@ -22,4 +22,24 @@ function query($query) {
 
     return $mahasiswa;
 }
+
+// baru
+function tambah($data) {
+    $conn = koneksi();
+
+    // cara mengamankan dibungkus menggunakan htmlspecialchars  (semua data yang dikirim dari user dicek apakah ada lebih kecil darinya, jika ada jangan ditampilkan untuk menghindari hacking)
+    $Nama = htmlspecialchars($data['Nama']);
+    $Nim = htmlspecialchars($data['Nim']);
+    $Email = htmlspecialchars($data['Email']);
+    $Jurusan = htmlspecialchars($data['Jurusan']);
+    $Gambar = htmlspecialchars($data['Gambar']);
+
+
+    $query = "INSERT INTO mahasiswa
+                    -- null
+              VALUES ('', '$Nama', '$Nim', '$Email', '$Jurusan', '$Gambar');";
+    mysqli_query($conn, $query);
+    echo mysqli_error($conn);
+    return mysqli_affected_rows($conn);
+}
 ?>
